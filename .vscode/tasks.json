@@ -17,20 +17,74 @@
         }
     },
     "tasks": [
+        // Auto watch
+        {
+            "group": "build",
+            "label": "Auto Watch:  Build global typescript",
+            "type": "shell",
+            "command": "tsc -b -w src examples tests_global",
+            "problemMatcher": ["$tsc-watch"],
+            "isBackground": true,
+            "runOptions": { "runOn": "folderOpen" }
+        },
+        {
+            "group": "build",
+            "label": "Auto Watch:  Build modular library",
+            "type": "shell",
+            "command": "modularize-namespace --watch global.js --output modular.js --namespace mmk.example",
+            "problemMatcher": [],
+            "isBackground": true,
+            "runOptions": { "runOn": "folderOpen" }
+        },
+        {
+            "group": "build",
+            "label": "Auto Watch:  Build modular tests",
+            "type": "shell",
+            "command": "tsc -b -w tests_modular",
+            "problemMatcher": ["$tsc"],
+            "dependsOn": ["Build modular library"],
+            "isBackground": true,
+            "runOptions": { "runOn": "folderOpen" }
+        },
+        {
+            "group": "test",
+            "label": "Auto Watch:  Run tests",
+            "type": "shell",
+            "command": "karma start karma.conf.js --auto-watch --browsers ChromeHeadless,FirefoxHeadless",
+            "problemMatcher": ["$karma-jasmine3"],
+            "isBackground": true,
+            "runOptions": { "runOn": "folderOpen" }
+        },
+
+        // Manual watch
+        {
+            "group": "test",
+            "label": "Watch:  Run tests (all browsers)",
+            "type": "shell",
+            "command": "karma start karma.conf.js --auto-watch --browsers Chrome,Firefox,IE,Edge",
+            "problemMatcher": ["$karma-jasmine3"],
+            "isBackground": true
+        },
+
         // Coarse builds
-        { "group": "build", "label": "Build & run tests (headless)",    "type": "shell", "command": "tsc -b tests && karma start karma.conf.js --single-run --browsers ChromeHeadless,FirefoxHeadless", "problemMatcher": ["$tsc", "$karma-jasmine3"] },
-        { "group": "build", "label": "Build all",                       "type": "shell", "dependsOn": ["Build typescript", "Build docs"] },
-
-        // Fine grained builds
-        { "group": "build", "label": "Build typescript",                            "type": "shell", "command": "tsc -b src examples tests",    "problemMatcher": ["$tsc"] },
-        { "group": "build", "label": "Build typescript (watch for changes)",        "type": "shell", "command": "tsc -b -w src examples tests", "problemMatcher": ["$tsc-watch"], "isBackground": true, "runOptions": { "runOn": "folderOpen" } },
-        { "group": "build", "label": "Build docs",                                  "type": "shell", "command": "typedoc --mode file --out docs --exclude node_modules/@types/karma/* --sourcefile-url-prefix ../../src/ src", "problemMatcher": [] },
-
-        // Test without building
-        { "group": "test", "label": "Run tests (headless)",                         "problemMatcher": ["$karma-jasmine3"], "type": "shell", "command": "karma start karma.conf.js --single-run --browsers ChromeHeadless,FirefoxHeadless" },
-        { "group": "test", "label": "Run tests (headless, watch for changes)",      "problemMatcher": ["$karma-jasmine3"], "type": "shell", "command": "karma start karma.conf.js --auto-watch --browsers ChromeHeadless,FirefoxHeadless", "runOptions": { "runOn": "folderOpen" } },
-        { "group": "test", "label": "Run tests (all browsers)",                     "problemMatcher": ["$karma-jasmine3"], "type": "shell", "command": "karma start karma.conf.js --single-run --browsers Chrome,Firefox,IE,Edge" },
-        { "group": "test", "label": "Run tests (all browsers, watch for changes)",  "problemMatcher": ["$karma-jasmine3"], "type": "shell", "command": "karma start karma.conf.js --auto-watch --browsers Chrome,Firefox,IE,Edge" },
+        { "group": "build", "label": "Build typescript", "type": "shell", "command": "${workspaceFolder}/tasks/build_typescript.cmd", "problemMatcher": ["$tsc"] },
+        { "group": "build", "label": "Build docs",       "type": "shell", "command": "typedoc --mode file --out docs --exclude node_modules/@types/karma/* --sourcefile-url-prefix ../../src/ src", "problemMatcher": [] },
+        {
+            "group": "build",
+            "label": "Build & run tests (headless)",
+            "type": "shell",
+            "command": "karma start karma.conf.js --single-run --browsers ChromeHeadless,FirefoxHeadless",
+            "problemMatcher": ["$karma-jasmine3"],
+            "dependsOn": ["Build typescript"]
+        },
+        {
+            "group": "build",
+            "label": "Build & run tests (all browsers)",
+            "type": "shell",
+            "command": "karma start karma.conf.js --single-run --browsers Chrome,Firefox,IE,Edge",
+            "problemMatcher": ["$karma-jasmine3"],
+            "dependsOn": ["Build typescript"]
+        },
 
         // Utility tasks
         { "group": "none", "label": "Open examples",      "type": "shell", "command": "${workspaceFolder}/examples/index.html", "problemMatcher": [] },

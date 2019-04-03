@@ -2,7 +2,7 @@ module.exports = function(config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine'],
-    files: ['tests/*.js'],
+    files: ['tests_global/*.js', 'tests_modular/*.js'],
     preprocessors: {},
     reporters: ['progress'], // or 'dots'
     port: 9876,

@@ -2,9 +2,8 @@
     "files.exclude": {
         "**/.git": true,
         "**/*.tsbuildinfo": true,
-        "examples/*.{d.ts,js,js.map}": true,
-        "tests/tests.{d.ts,js,js.map}": true,
-        "template_ts_library_vscode.{d.ts,d.ts.map,js,js.map}": true,
+        "{examples,tests_global,tests_modular}/*.{d.ts,js,js.map}": true,
+        "{global,modular}.{d.ts,d.ts.map,js,js.map}": true,
         "package-lock.json": true,
     },
 }

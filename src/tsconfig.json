@@ -1,7 +1,7 @@
 {
     "extends": "../tsconfig.common.json",
     "compilerOptions": {
-        "outFile": "../template_ts_library_vscode.js",
+        "outFile": "../global.js",
         "composite": true,
         "declaration": true,
         "declarationMap": true,
