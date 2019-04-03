@@ -1,0 +1,16 @@
+{
+    "extends": "../tsconfig.common.json",
+    "compilerOptions": {
+        "outFile": "examples.js"
+    },
+    "include": [
+        "../template_ts_library_vscode.d.ts",
+        "**/*.ts",
+    ],
+    "exclude": [
+        "examples.d.ts",
+    ],
+    "references": [
+        { "path": "../src", "prepend": true }
+    ]
+}

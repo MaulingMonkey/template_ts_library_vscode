@@ -1,0 +1,16 @@
+/docs/
+/examples/*.js
+/examples/*.js.map
+/examples/*.d.ts
+/examples/*.d.ts.map
+/node_modules/
+/tests/*.js
+/tests/*.js.map
+/tests/*.d.ts
+/tests/*.d.ts.map
+/package-lock.json
+/template_ts_library_vscode.js
+/template_ts_library_vscode.js.map
+/template_ts_library_vscode.d.ts
+/template_ts_library_vscode.d.ts.map
+*.tsbuildinfo
